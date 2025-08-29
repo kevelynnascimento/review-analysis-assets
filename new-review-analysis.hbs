@@ -1,0 +1,206 @@
+<html>
+  <!-- Roboto - Google Fonts -->
+  <link rel='preconnect' href='https://fonts.googleapis.com' />
+  <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+  <link
+    href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap'
+    rel='stylesheet'
+  />
+  <!-- date-fns -->
+  <script src='https://cdn.jsdelivr.net/npm/date-fns@4.1.0/cdn.min.js'></script>
+  <script src="https://cdn.jsdelivr.net/gh/kevelynnascimento/review-analysis-assets/date-helper.js"></script>
+
+
+  <!-- chartjs -->
+  <script
+    src='https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.min.js'
+  ></script>
+
+  <!-- Tailwind global conf -->
+  <script src='https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4'></script>
+  <script>
+    tailwind.config = { theme: { extend: { fontFamily: { sans: ['Roboto',
+    'sans-serif'], }, fontSize: { base: '20px', }, }, }, }
+  </script>
+  <style type='text/tailwindcss'>
+    html {
+      font-size: 20px;
+    }
+    body {
+      @apply font-sans text-base;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/gh/kevelynnascimento/review-analysis-assets/linechart-helper.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kevelynnascimento/review-analysis-assets/doughnutchart-helper.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kevelynnascimento/review-analysis-assets/provider-icons.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kevelynnascimento/review-analysis-assets/normalize.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kevelynnascimento/review-analysis-assets/providers-helper.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/gh/kevelynnascimento/review-analysis-assets/review-analysis-init.js" defer></script>
+
+  <div class='flex flex-col p-8 gap-2 w-[1080px]'>
+    <section class='flex flex-col items-center gap-2 bg-[#FAFAFA] p-2 rounded'>
+      <h1 class='text-xl font-semibold'>Review Analysis Report</h1>
+      <h2 class='text-xs text-[#00000073]'>
+        <time id='start-date' datetime='{{startDate}}'>{{startDate}}</time>
+        to
+        <time id='end-date' datetime='{{endDate}}'>{{endDate}}</time>
+      </h2>
+      <h2 class='text-xs text-[#00000073]'>
+        <span id='locations-count' class='text-black'></span>
+        Locations
+        <span id='publishers-count' class='text-black'></span>
+        Publishers
+      </h2>
+    </section>
+
+    <section id='cards' class='flex gap-2 justify-between'>
+      <div class='flex flex-1 flex-col gap-2'>
+        <div class='flex flex-col border border-[#0000001A] rounded p-2 gap-1'>
+          <span class='text-black'>Reviews</span>
+          <span class='text-black font-bold text-xl'>517
+            <span class='text-[#00000073]'>477</span>
+          </span>
+          <div class='flex flex-row gap-1 items-center'>
+            <span class='text-xs text-[#00000073]'>Previous period</span>
+            <span
+              class='text-[#016A1C] text-xs bg-[#E6F8E9] px-1 py-[2px] rounded'
+            >+10%</span>
+          </div>
+        </div>
+
+        <div class='flex flex-col border border-[#0000001A] rounded p-2 gap-1'>
+          <span class='text-black'>Response Time</span>
+          <span class='text-black font-bold text-xl'>2h 31m
+            <span class='text-[#00000073]'>2h 09m</span>
+          </span>
+          <div class='flex flex-row gap-1 items-center'>
+            <span class='text-xs text-[#00000073]'>Previous period</span>
+            <span
+              class='text-[#016A1C] text-xs bg-[#E6F8E9] px-1 py-[2px] rounded'
+            >+4.3%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class='flex flex-1 flex-col gap-2'>
+        <div class='flex flex-col border border-[#0000001A] rounded p-2 gap-1'>
+          <span class='text-black'>Average Rating</span>
+          <span class='text-black font-bold text-xl'>4.4
+            <span class='text-[#00000073]'>4.4</span>
+          </span>
+          <div class='flex flex-row gap-1 items-center'>
+            <span class='text-xs text-[#00000073]'>Previous period</span>
+            <span
+              class='text-[#8D000C] text-xs bg-[#FFE4E7] px-1 py-[2px] rounded'
+            >-1%</span>
+          </div>
+        </div>
+
+        <div class='flex flex-col border border-[#0000001A] rounded p-2 gap-1'>
+          <span class='text-black'>Response Rate</span>
+          <span class='text-black font-bold text-xl'>66.2%
+            <span class='text-[#00000073] text-md'>52.1%</span>
+          </span>
+          <div class='flex flex-row gap-1 items-center'>
+            <span class='text-xs text-[#00000073]'>Previous period</span>
+            <span
+              class='text-[#016A1C] text-xs bg-[#E6F8E9] px-1 py-[2px] rounded'
+            >+13%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class='flex flex-1 flex-col gap-2'>
+        <div class='flex flex-col border border-[#0000001A] rounded p-2 gap-1'>
+          <span class='text-black'>Reviews Frequency</span>
+          <div class='flex text-black font-bold text-xl items-center gap-2'>17.2
+            <span class='text-[#00000073] text-xs font-normal'>Average per day</span>
+          </div>
+          <div class='flex flex-row gap-1 items-center'>
+            <span class='text-xs text-[#00000073]'>Previous period</span>
+            <span
+              class='text-[#016A1C] text-xs bg-[#E6F8E9] px-1 py-[2px] rounded'
+            >+4.3%</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class='flex justify-center items-center gap-10 border border-[#0000001A] rounded p-2'
+    >
+      <div class='flex h-[200px]'>
+        <canvas id='total-review-doughnut-publisher-chart'></canvas>
+      </div>
+      <div class='flex flex-col gap-2'>
+        <div class='flex items-center gap-2'>
+          <span class='text-black font-regular'>Total Reviews</span>
+          <span
+            class='text-[#606B85] text-xs font-regular bg-[#F3F5FA] px-1 py-[2px] rounded'
+          >By Publisher</span>
+
+        </div>
+        <div
+          id='total-review-doughnut-legend'
+          class='flex flex-col gap-1'
+        ></div>
+      </div>
+    </section>
+
+    <section class='flex flex-col border border-[#0000001A] rounded p-2'>
+      <div class='flex items-center gap-2'>
+        <span class='text-black font-regular'>Rating Trends Over Time</span>
+        <span
+          class='text-[#606B85] text-xs font-regular bg-[#F3F5FA] px-1 py-[2px] rounded'
+        >By Publisher</span>
+
+      </div>
+      <canvas id='rating-trends-over-time-line-chart-publisher' height='300' />
+    </section>
+
+    <section
+      id='providers'
+      class='flex items-center justify-center gap-3 py-2'
+    ></section>
+
+    <section
+      class='flex justify-center items-center gap-10 border border-[#0000001A] rounded p-2'
+    >
+      <div class='flex h-[200px]'>
+        <canvas id='total-review-doughnut-premise-chart'></canvas>
+      </div>
+      <div class='flex flex-col gap-2'>
+        <div class='flex items-center gap-2'>
+          <span class='text-black font-regular'>Total Reviews</span>
+          <span
+            class='text-[#606B85] text-xs font-regular bg-[#F3F5FA] px-1 py-[2px] rounded'
+          >By Premise</span>
+
+        </div>
+        <div
+          id='total-review-doughnut-premise-legend'
+          class='flex flex-col gap-1'
+        ></div>
+      </div>
+    </section>
+
+    <section class='flex flex-col border border-[#0000001A] rounded p-2'>
+      <div class='flex items-center gap-2'>
+        <span class='text-black font-regular'>Rating Trends Over Time</span>
+        <span
+          class='text-[#606B85] text-xs font-regular bg-[#F3F5FA] px-1 py-[2px] rounded'
+        >By Premise</span>
+
+      </div>
+      <canvas id='rating-trends-over-time-line-chart-premise' height='300' />
+    </section>
+
+  </div>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!(window.ReviewAnalysisInit && typeof ReviewAnalysisInit.initAll === 'function')) return;
+      ReviewAnalysisInit.initAll({{{ratingTrendsOvertimeToCsv}}});
+    });
+  </script>
+</html>
